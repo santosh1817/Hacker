@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Hacker } = require('../models/Hacker');
-
-<<<<<<< HEAD
+const _ =require('lodash')
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -12,9 +11,7 @@ const storage = multer.diskStorage({
     cb(null, Number(new Date()) + '_' + file.originalname);
   }
 });
-=======
-const _ =require('lodash')
->>>>>>> 9ec5c4e74bf4c56c36e9855d071c6e45c34a4996
+
 
 const fileFilter = (req, file, cb) => {
   if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png') {
@@ -77,43 +74,6 @@ router.get('/top3', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-router.post('/add', upload.single('photo'), (req, res) => {
-  const body = req.body;
-  if (req.file) {
-    body.photo = req.file.path;
-  } else {
-    const error = new Error('Please upload a file');
-    error.httpStatusCode = 400;
-    return next(error);
-  }
-  const hacker = new Hacker(body);
-  console.log(body);
-  hacker
-    .save()
-    .then(hack => res.send(hack))
-    .catch(err => res.send(err));
-});
-router.get('/allHackers', async function(req, res) {
-  try {
-    let hacker = await Hacker.find();
-    let result = hacker.sort(dynamicSort('name'));
-    return res.send(result);
-  } catch (e) {
-    return res.send(e);
-  }
-});
-router.get('/:id', (req, res) => {
-  const { id } = req.params;
-  console.log('id', id);
-  Hacker.findOne({ _id: id })
-    .then(data => {
-      if (data) {
-        res.send(data);
-      } else {
-        res.send({});
-      }
-=======
 router.post('/add',upload.single('photo'),(req,res,next)=>{
     const body=req.body
     if(req.file){
@@ -132,20 +92,7 @@ router.post('/add',upload.single('photo'),(req,res,next)=>{
     .catch(err=>res.send(err))
 })
 router.get('/allHackers', async function(req,res){
-    function dynamicSort(property) {
-        var sortOrder = 1;
-        if(property[0] === "-") {
-            sortOrder = -1;
-            property = property.substr(1);
-        }
-        return function (a,b) {
-            /* next line works with strings and numbers, 
-             * and you may want to customize it to your needs
-             */
-            var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-            return result * sortOrder;
-        }
-    }
+    
     try{
         let hacker =await Hacker.find()
         let result=hacker.sort(dynamicSort("name"))
@@ -169,7 +116,6 @@ router.get('/:id',(req,res)=>{
     })
     .catch(err=>{
         res.send(err)
->>>>>>> 9ec5c4e74bf4c56c36e9855d071c6e45c34a4996
     })
     .catch(err => {
       res.send(err);
