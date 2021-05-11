@@ -6,6 +6,7 @@ import Login from './components/user/Login'
 import Home from './components/Home/Home'
 import Hackerdata from './components/Home/Hackerdata'
 import axios from 'axios'
+import Top3 from './components/Home/Top3'
 
 class App extends React.Component{
   constructor(props) {
@@ -45,7 +46,9 @@ class App extends React.Component{
                  <li className="nav-item ml-4"><Link to="/homepage" >Home</Link></li>
                  
                  <li className="nav-item ml-4"><Link to="/users/logout" >Logout</Link></li>
-                 <li className="nav-item ml-4"><Link to="">Toppers</Link></li>
+              
+                 <li className="nav-item ml-4"><Link to="/hackers/top3">Top 3 hackers</Link></li>
+                   <li className="nav-item ml-4"><Link to="/homepage" >Hackers List</Link></li>
                  </div>
              
 
@@ -54,6 +57,7 @@ class App extends React.Component{
                    {/* <li className="nav-item ml-5"><Link to="/" >Home</Link></li> */}
                    <li className="nav-item ml-5"><Link to="/users/register">Register</Link></li>
                    <li className="nav-item ml-5"><Link to="/users/login">Login</Link></li>
+                   
                    
                  </div>
                )}
@@ -64,6 +68,7 @@ class App extends React.Component{
           </div>
           <Switch>
           <Route path="/users/register" component={ Register } />
+          <Route path="/hackers/top3" component={ Top3 } />
           <Route path="/homepage"  component={Home}/>
           <Route path="/:id" component={Hackerdata}/>
           <Route path="/users/login" render={(props) => {
